@@ -14,45 +14,43 @@ import com.example.silenthours.ui.theme.SilentHoursTheme
 
 @Composable
 fun IntroScreen(
-    onSignUpClick: () -> Unit,
-    onLoginClick: () -> Unit,
+    onGetStartedClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var phoneNumber by remember { mutableStateOf("") }
+    // Phone number field removed as per new focus on permissions first.
+    // var phoneNumber by remember { mutableStateOf("") }
 
     Column(
         modifier = modifier // Apply the modifier passed from MainActivity
             .fillMaxSize()
-            .padding(16.dp), // This padding will be applied inside the scaffold's padding
+            .padding(horizontal = 24.dp, vertical = 32.dp), // Increased padding for more breathing room
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = "Welcome to SilentHours!",
-            style = MaterialTheme.typography.headlineMedium
+            style = MaterialTheme.typography.headlineMedium,
+            color = MaterialTheme.colorScheme.onSurface
         )
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(48.dp)) // Increased spacing
 
-        OutlinedTextField(
-            value = phoneNumber,
-            onValueChange = { phoneNumber = it },
-            label = { Text("Phone Number") },
-            modifier = Modifier.fillMaxWidth()
-        )
+        // Phone number field removed
+        // OutlinedTextField(
+        //     value = phoneNumber,
+        //     onValueChange = { phoneNumber = it },
+        //     label = { Text("Phone Number") },
+        //     modifier = Modifier.fillMaxWidth(),
+        //     singleLine = true
+        // )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(40.dp)) // Increased spacing (adjust as needed after removing text field)
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly
+        Button(
+            onClick = onGetStartedClick,
+            modifier = Modifier.fillMaxWidth(0.8f) // Button takes 80% of width
         ) {
-            Button(onClick = onSignUpClick) {
-                Text("Sign Up")
-            }
-            Button(onClick = onLoginClick) {
-                Text("Log In")
-            }
+            Text("Get Started")
         }
     }
 }
@@ -61,6 +59,9 @@ fun IntroScreen(
 @Composable
 fun IntroScreenPreview() {
     SilentHoursTheme {
-        IntroScreen(onSignUpClick = {}, onLoginClick = {}, modifier = Modifier.padding(16.dp)) // Added padding for preview consistency
+        IntroScreen(
+            onGetStartedClick = {},
+            modifier = Modifier.padding(16.dp) // Preview uses its own padding for isolation
+        )
     }
 }
